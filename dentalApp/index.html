@@ -12,7 +12,7 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-gradiente-bottom" id="mainNav">
             <div class="container px-4">
                 <a class="navbar-brand" href="#page-top">🦷DentalAPP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -38,7 +38,7 @@
         <section id="about">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <h2>¿Por qué surge DentalAPP?</h2>
                         <p class="lead">Somos un grupo de odontólogos que perdíamos mucho tiempo realizando los presupuestos y facturas de nuestros pacientes.
                             Creemos que ese valioso tiempo puede ser mejor utilizado en infinidades de cosas en vez de desperdiciarlo con los papeles del día a día.
@@ -57,13 +57,46 @@
         <section class="bg-light" id="servicesSec">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <h2>Realizá tu presupuesto/factura acá mismo</h2>
                         <p class="lead">La idea es que acá se muestren los servicios con sus precios e información. 
                             El odontólogo(usuario) los puede ir seleccionando y sumando. Luego de agregados puede aplicar un descuento de acuerdo a la Obra social que tenga</p>
                         <div>
-                            <div id="servicios" class="row">
-
+                            <h3 class="datos-paciente-inicio mt-5">Datos del Paciente</h3>
+                            <!-- Formulario para ingresar los datos del paciente -->
+                            <div class="row g-2 mt-2 mb-5">
+                                <div class="col-md">
+                                  <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInputGrid" placeholder="#">
+                                    <label for="floatingInputGrid">Nombre</label>
+                                  </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="#">
+                                      <label for="floatingInputGrid">Apellido</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md">
+                                    <div class="form-floating">
+                                      <input type="number" class="form-control" id="floatingInputGrid" placeholder="1" value="mdo@example.com">
+                                      <label for="floatingInputGrid">Edad</label>
+                                    </div>
+                                  </div>
+                                <div class="col-md">
+                                  <div class="form-floating">
+                                    <select class="form-select" id="lista-obras-sociales" aria-label="Floating label select example">
+                                      <option hidden selected>Seleccione de la lista</option>
+                                    </select>
+                                    <label for="lista-obras-sociales">Obra social</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <hr>
+                              
+                            <!-- Acá se van a mostrar los servicios -->
+                            <div id="lista-servicios-disponibles" class="row">
+                                
                             </div>
                         </div>
                     </div>
@@ -74,7 +107,7 @@
         <section id="contact">
             <div class="container px-4">
                 <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <h2>Estemos en contacto</h2>
                         <p class="lead">Direcciones de contacto y formulario</p>
                     </div>
@@ -82,15 +115,14 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark border-gradiente-top">
             <div class="container px-4"><p class="m-0 text-center text-white"><strong>Esteban Demarchi</strong> | Curso JS CoderHouse 2021</p></div>
         </footer>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <!-- Mis scripts -->
-        <!-- <script src="js/simuladorEntrega.js"></script> -->
 
+        <!-- - - - - Mis scripts - - - - -->
         <!-- DATA -->
         <script src="js/data/dataObrasSociales.js"></script>
         <script src="js/data/dataServicios.js"></script>

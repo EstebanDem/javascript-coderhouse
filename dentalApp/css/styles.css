@@ -4512,6 +4512,22 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+
+.card:hover {
+  border: 1px solid rgb(79, 97, 255);
+  box-shadow: 1px 4px 3px 0px rgba(222,222,222,0.75);
+}
+
+.datos-paciente-inicio {
+  background: -webkit-linear-gradient(45deg, rgb(7 209 166) 0%, rgb(0 71 96) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+::selection {
+  background: #c3f4ff;
+}
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -11287,4 +11303,16 @@ header {
 section {
   padding-top: 9rem;
   padding-bottom: 9rem;
+}
+
+.border-gradiente-bottom {
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  border-image: linear-gradient(45deg, rgb(0 255 185), rgb(66 195 250)) 1;
+}
+
+.border-gradiente-top {
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-image: linear-gradient(45deg, rgb(66 195 250),rgb(0 255 185)) 1;
 }

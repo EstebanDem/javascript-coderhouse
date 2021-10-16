@@ -15,4 +15,12 @@ class ObraSocial {
     getDescuentoEnPorcentaje() {
         return (100-this.getDescuento()) / 100;
     }
+
+    agregarObraSocialAlSelector() {
+        const listaObrasSociales = document.getElementById('lista-obras-sociales');
+        const item = document.createElement('option');
+        item.innerText = this.getNombre();
+        item.value = this.getDescuento();
+        listaObrasSociales.appendChild(item);
+    }
 }
