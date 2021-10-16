@@ -18,12 +18,11 @@ class Perro {
 }
 
 // Lista de perritos
-let perritos = [];
+let perritos = JSON.parse(localStorage.getItem('perritos')) || [];
 
 
 //Devuelve todo los perritos
 const getAll = () => {
-    perritos = JSON.parse(localStorage.getItem('perritos'));
     return perritos;
 }
 
@@ -94,3 +93,31 @@ console.log(getAll());
 
 update('argos',"blanco")
 console.log(getAll());
+
+// Obtener elementos del DOM
+
+const listaPerros = document.getElementById('lista-perros');
+const formPerro = document.getElementById('form-perro');
+const inputNombre = document.getElementById('input-nombre-perro');
+const inputColor = document.getElementById('input-color-perro');
+const inputEdad = document.getElementById('input-edad-perro');
+
+// Agregar perritos a la lista de perros del browser
+
+for (let perro of perritos) {
+    let itemPerro = document.createElement('li');
+    itemPerro.textContent = perro.nombre;
+    listaPerros.appendChild(itemPerro);
+}
+
+// Escuchar el evento submit del formulario 
+
+formPerro.addEventListener('submit', (event) => {
+    // event.preventDefault(); // Hace que no se me recargue la página
+    const nombre = inputNombre.value;
+    const color = inputColor.value;
+    const edad = inputEdad.value;
+
+    const perro = new Perro(nombre,color,edad);
+    create(perro);
+})

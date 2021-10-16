@@ -7,7 +7,26 @@
     <title>Document</title>
 </head>
 <body>
+    <form id="form-perro">
+        <p>Nombre: </p>
+        <input id="input-nombre-perro" required="required" autocomplete="off" type="text">
     
-    <script src="crud.js"></script>
+        <p>Color:</p>
+        <input id="input-color-perro" autocomplete="off" type="text">
+
+        <p>Edad:</p>
+        <input id="input-edad-perro" autocomplete="off" type="number+">
+        <hr>
+        <div>
+            <button>Agregar</button>
+        </div>
+    </form>
+
+    <ul id="lista-perros">
+
+    </ul>
+
+    <!-- Carga de scripts -->
+    <script defer src="crud.js"></script>
 </body>
 </html>
