@@ -52,7 +52,7 @@ const remove = (nombre) => {
 
     const index = perritos.indexOf(perro);
     perritos.splice(index, 1);
-    
+    localStorage.setItem('perritos', JSON.stringify(perritos));
 /*     const index = perritos.findIndex(perro => perro.nombre === nombre);
     if(index >= 0) {
         perritos.splice(index, 1);
@@ -87,12 +87,11 @@ create(perro4);
 //Paso 3
 // busco a un perro por su noimbre
 //console.log(findOne('molo'));
-console.log(getAll());
+//console.log(getAll());
 //remove('molo');
-console.log(getAll());
+//console.log(getAll());
 
-update('argos',"blanco")
-console.log(getAll());
+//console.log(getAll());
 
 // Obtener elementos del DOM
 
@@ -104,9 +103,16 @@ const inputEdad = document.getElementById('input-edad-perro');
 
 // Agregar perritos a la lista de perros del browser
 
-for (let perro of perritos) {
+
+for (let i = 0; i < perritos.length; i++) {
     let itemPerro = document.createElement('li');
-    itemPerro.textContent = perro.nombre;
+    itemPerro.innerHTML = `${perritos[i].nombre} 
+    <span style="cursor:pointer" id="${i}"> x </span>`;
+
+    itemPerro.onclick = () => {
+        console.log(perritos[i]);
+        remove(perritos[i].nombre);
+    }
     listaPerros.appendChild(itemPerro);
 }
 
@@ -121,3 +127,13 @@ formPerro.addEventListener('submit', (event) => {
     const perro = new Perro(nombre,color,edad);
     create(perro);
 })
+
+/* module.exports = {
+    renderMessage
+}
+
+export {
+
+}
+
+scr src type module */

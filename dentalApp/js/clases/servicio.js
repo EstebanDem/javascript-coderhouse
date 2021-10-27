@@ -1,10 +1,28 @@
 class Servicio {
-    constructor(nombre, urlImagen, descripcion, precio, limite) {
+    constructor(id, cantidad, nombre, urlImagen, descripcion, precio, limite) {
+        this.id = id;
+        this.cantidad = cantidad;
         this.nombre = nombre;
         this.urlImagen = urlImagen;
         this.descripcion = descripcion;
         this.precio = precio;
         this.limite = limite;
+    }
+
+    getId() {
+        return this.id;
+    }
+
+    getCantidad() {
+        return this.cantidad;
+    }
+
+    agregarCantidad() {
+        this.cantidad++;
+    }
+
+    quitarCantidad() {
+        this.cantidad--;
     }
 
     getUrlImagen() {
@@ -53,12 +71,55 @@ class Servicio {
 
         const cardPrecio = document.createElement('p');
         cardPrecio.classList.add('card-text');
-        cardPrecio.innerHTML = `<strong>Precio: </strong>${this.getPrecio()}`;
+        cardPrecio.innerHTML = `<strong>Precio: </strong>$${this.getPrecio()}`;
+
+        const cardButtonAdd = document.createElement('button');
+        cardButtonAdd.classList.add('btn','btn-info');
+        cardButtonAdd.innerHTML='Agregar';
+        
+        const cardButtonDecrease = document.createElement('button');
+        cardButtonDecrease.classList.add('btn', 'btn-danger');
+        cardButtonDecrease.setAttribute('disabled',true);
+        cardButtonDecrease.innerHTML="Quitar";
+        
+        cardButtonAdd.addEventListener('click', () => {
+            
+            if (this.cantidad===0) {
+                this.agregarAlArrayDeServiciosSeleccionados(this);
+                this.agregarCantidad();
+                cardButtonDecrease.removeAttribute('disabled');
+                divCard.classList.add('card-seleccionada');
+            } else {
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesAgregaUno(this);
+            }
+                
+            agregarListaSeleccionadosYDevolverMontosTotales();
+            
+        })
+
+        cardButtonDecrease.addEventListener('click', () => {
+            if (this.cantidad === 1) {
+                console.log("hola3")
+                cardButtonDecrease.setAttribute("disabled",true);
+                divCard.classList.remove("card-seleccionada");
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+            }
+            else if (this.cantidad > 0 ) {
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+            } 
+            else{ 
+                cardButtonDecrease.setAttribute("disabled",true);
+                
+            }
+            agregarListaSeleccionadosYDevolverMontosTotales();
+        })
 
         //Ahora debo comenzar a agregar los childs
         divCardBody.appendChild(cardTitle);
         divCardBody.appendChild(cardDescripcion);
         divCardBody.appendChild(cardPrecio);
+        divCardBody.appendChild(cardButtonAdd);
+        divCardBody.appendChild(cardButtonDecrease);
 
         divCard.appendChild(cardImg);
         divCard.appendChild(divCardBody);
@@ -67,18 +128,23 @@ class Servicio {
 
         listaServiciosDisponibles.appendChild(divColSm3);
     }
+    agregarAlArrayDeServiciosSeleccionados(claseServicio) {
+        serviciosSeleccionados.push(claseServicio);
+    }
 
-                                    
+    existeElServicioEnElArrayDeSeleccionadosEntoncesAgregaUno(claseServicio) {
+        serviciosSeleccionados.forEach(element => {
+            if(element.getId() === claseServicio.getId()) {
+                this.agregarCantidad();
+            } 
+        })
+    }
+
+    existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(claseServicio) {
+        serviciosSeleccionados.forEach(element => {
+            if(element.getId() === claseServicio.getId()) {
+                this.quitarCantidad();
+            } 
+        })
+    }
 }
-
-{/* 
-<div class="col-sm-3">
-    <div class="card">
-        <img src="URL IMAGEN" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Nombre Servicio</h5>
-            <p class="card-text">Descripcion</p>
-            <p class="card-text"><strong>Precio:</strong> $x</p>
-        </div>
-    </div>
-</div> */}

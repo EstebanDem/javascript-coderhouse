@@ -30,28 +30,28 @@ const dataServicios = [
         limite: false
     },
     {
-        nombre: "Arreglo de caries",
+        nombre: "Arreglo de caries5",
         urlImagen: "images/servicios/5.png",
         descripcion: "Arreglo de carie en uno o más dientes con anestesia",
         precio: 600,
         limite: false
     },
     {
-        nombre: "Arreglo de caries",
+        nombre: "Arreglo de caries6",
         urlImagen: "images/servicios/6.png",
         descripcion: "Arreglo de carie en uno o más dientes con anestesia",
         precio: 600,
         limite: false
     },
     {
-        nombre: "Arreglo de caries",
+        nombre: "Arreglo de caries7",
         urlImagen: "images/servicios/7.png",
         descripcion: "Arreglo de carie en uno o más dientes con anestesia",
         precio: 600,
         limite: false
     },
     {
-        nombre: "Arreglo de caries",
+        nombre: "Arreglo de caries8",
         urlImagen: "images/servicios/8.png",
         descripcion: "Arreglo de carie en uno o más dientes con anestesia",
         precio: 600,

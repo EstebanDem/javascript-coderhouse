@@ -24,3 +24,6 @@ class Persona {
 }
 
 
+/* export {
+    Persona
+} */

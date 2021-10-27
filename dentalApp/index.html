@@ -31,7 +31,7 @@
                 <h1 class="fw-bolder">DentalAPP</h1>
                 <p class="lead">¿No utiliza ya demasiadas herramientas en su consultorio?</p>
                 <p class="lead">De los presupuestos se encarga <strong>DentalAPP</strong></p>
-                <a class="btn btn-lg btn-light" href="#about">Conocé más</a>
+                <a class="btn btn-lg btn-light btn-border-gray" href="#about">Conocé más</a>
             </div>
         </header>
         <!-- About section-->
@@ -67,19 +67,19 @@
                             <div class="row g-2 mt-2 mb-5">
                                 <div class="col-md">
                                   <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInputGrid" placeholder="#">
+                                    <input type="text" id="input-nombre"  class="form-control" id="floatingInputGrid" placeholder="#">
                                     <label for="floatingInputGrid">Nombre</label>
                                   </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="#">
+                                      <input type="text" id="input-apellido" class="form-control" id="floatingInputGrid" placeholder="#">
                                       <label for="floatingInputGrid">Apellido</label>
                                     </div>
                                   </div>
                                   <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="number" class="form-control" id="floatingInputGrid" placeholder="1">
+                                      <input type="number" id="input-edad" class="form-control" id="floatingInputGrid" placeholder="1">
                                       <label for="floatingInputGrid">Edad</label>
                                     </div>
                                   </div>
@@ -91,15 +91,49 @@
                                     <label for="lista-obras-sociales">Obra social</label>
                                   </div>
                                 </div>
+                                <div class="col-md-1">
+                                    <div class="form-floating full-height">
+                                        <button id="btn-agregar-paciente" type="button" class="btn btn-primary full-btn">Agregar</button>
+                                    </div>
+                                  </div>
                               </div>
-                              <hr>
-
-                            <!-- Acá se van a mostrar los servicios -->
-                            <div id="lista-servicios-disponibles" class="row">
+                              
+                              <!-- Acá se van a mostrar los servicios -->
+                              <div id="lista-servicios-disponibles" style='display:none' class="row">
+                                <hr>
                                 
                             </div>
                         </div>
+                        <!-- Acá se va a mostrar el presupuesto -->
+
+                        <div id="div-factura" style="display:none">
+                            <h3 class="datos-factura-inicio mt-5 tet">Factura</h3>
+                            <p id="datos-nombre-factura" class="lead"></p>
+                            <p id="datos-edad-factura" class="lead"></strong></p>
+                            <p id="datos-obra-social-factura" class="lead"></p>
+                            <!-- Acá va la tabla con los servicios elegidos -->
+                            
+                            <table id='tabla-servicios' class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Servicio</th>
+                                        <th scope="col">Precio Unitario</th>
+                                        <th scope="col">Precio Unitario c/descuento</th>
+                                </tr>
+                            </thead>
+                            <tbody id='tabla-servicios-body'>
+                                
+                            </tbody>
+                        </table>
+                        <div class="precios-totales">
+                            <p id="precio-total-factura" class="precio-factura-total"></p>
+                            <p id="precio-total-factura-descuento" class="precio-factura-total-descuento"></p>
+                        </div>
                     </div>
+                    
+                </div>
                 </div>
             </div>
         </section>
