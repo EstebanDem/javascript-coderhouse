@@ -107,7 +107,7 @@ function agregarListaSeleccionadosYDevolverMontosTotales() {
         tableDataNombreServicio.innerText = element.getNombre();
 
         const tableDataPrecio = document.createElement('td');
-        tableDataPrecio.innerText = `$${element.getPrecio()};`
+        tableDataPrecio.innerText = `$${element.getPrecio()}`;
 
         const tableDataPrecioConDescuento = document.createElement('td');
         tableDataPrecioConDescuento.innerText= `$${element.getPrecio() * paciente.obraSocial.getDescuentoEnPorcentaje()}`;
