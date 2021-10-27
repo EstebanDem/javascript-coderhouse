@@ -78,7 +78,7 @@ class Servicio {
         cardButtonAdd.innerHTML='Agregar';
         
         const cardButtonDecrease = document.createElement('button');
-        cardButtonDecrease.classList.add('btn', 'btn-danger');
+        cardButtonDecrease.classList.add('btn', 'btn-danger', 'ms-1');
         cardButtonDecrease.setAttribute('disabled',true);
         cardButtonDecrease.innerHTML="Quitar";
         
