@@ -148,3 +148,12 @@ function eliminarDeLaListaSiLaCantidadEsCero() {
         }
     })
 }
+
+const btnAgregarAlLocalStorage = document.getElementById('btn-agregarlo-local-storage');
+let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
+
+btnAgregarAlLocalStorage.addEventListener('click', () => {
+    btnAgregarAlLocalStorage.setAttribute('disabled',true);
+    listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
+    localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
+})
