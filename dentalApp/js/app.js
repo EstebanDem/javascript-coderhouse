@@ -154,6 +154,7 @@ let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 
 btnAgregarAlLocalStorage.addEventListener('click', () => {
     btnAgregarAlLocalStorage.setAttribute('disabled',true);
+    btnAgregarAlLocalStorage.innerHTML = 'Ya guardaste la factura!';
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
 })
