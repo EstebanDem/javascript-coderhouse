@@ -99,7 +99,6 @@ class Servicio {
 
         cardButtonDecrease.addEventListener('click', () => {
             if (this.cantidad === 1) {
-                console.log("hola3")
                 cardButtonDecrease.setAttribute("disabled",true);
                 divCard.classList.remove("card-seleccionada");
                 this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
