@@ -22,11 +22,12 @@ class ObraSocial {
     }
 
     agregarObraSocialAlSelector() {
-        const listaObrasSociales = document.getElementById('lista-obras-sociales');
-        const item = document.createElement('option');
-        item.innerText = this.getNombre();
-        item.id = this.getId();
-        item.value = this.getDescuento();
-        listaObrasSociales.appendChild(item);
+        $('#lista-obras-sociales').append(
+            `
+            <option id="${this.getId()}" value="${this.getDescuento()}">
+                ${this.getNombre()}
+            </option>
+            `
+        );
     }
 }
