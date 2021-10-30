@@ -1,5 +1,3 @@
-// Al ser un proyecto solamente front-end, se simulan los datos de backend declarandolos en la carpeta data
-
 const dataServicios = [
     {
         nombre: "Extracción",

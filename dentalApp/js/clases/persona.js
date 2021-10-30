@@ -22,8 +22,3 @@ class Persona {
         return this.obraSocial;
     }
 }
-
-
-/* export {
-    Persona
-} */
