@@ -43,7 +43,7 @@ class Servicio {
 
     // Este método va a dibujar el servicio en la Lista de servicios
     // Lo agrega como una Card de Bootstrap 
-    dibujarEnLaLista() {
+    dibujarEnLaList3a() {
         // Cargo el div del index.html donde quiero comenzar a agregar los distintos servicios
         const listaServiciosDisponibles = document.getElementById('lista-servicios-disponibles');
 
@@ -144,6 +144,55 @@ class Servicio {
             if(element.getId() === claseServicio.getId()) {
                 this.quitarCantidad();
             } 
+        })
+    }
+
+    dibujarEnLaLista() {
+        
+        $('#lista-servicios-disponibles').append(
+            `
+            <div class="col-sm-3">
+                <div id="card-${this.getId()}" class="card mt-4">
+                    <img class="card-img-top" src="${this.getUrlImagen()}">
+                    <div class="card-body">
+                        <h5 class="card-title">${this.getNombre()}</h5>
+                        <p class="card-text">${this.getDescripcion()}</p>
+                        <p class="card-text">
+                            <strong>Precio: </strong>$${this.getPrecio()}
+                        </p>
+                        <button id="btn-agregar-${this.getId()}" class="btn btn-info">Agregar</button>
+                        <button id="btn-quitar-${this.getId()}" class="btn btn-danger ms-1" disabled>Quitar</button>
+                    </div>
+                </div>
+            </div>
+            `
+        )
+        
+        $(`#btn-agregar-${this.getId()}`).click( () => {
+            if (this.cantidad===0) {
+                this.agregarAlArrayDeServiciosSeleccionados(this);
+                this.agregarCantidad();
+                $(`#btn-quitar-${this.getId()}`).removeAttr('disabled');
+                $(`#card-${this.getId()}`).addClass('card-seleccionada')
+            } else {
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesAgregaUno(this);
+            }
+            agregarListaSeleccionadosYDevolverMontosTotales();
+        } )
+
+        $(`#btn-quitar-${this.getId()}`).click( () => {
+            if (this.cantidad === 1) {
+                $(`#btn-quitar-${this.getId()}`).attr('disabled',true);
+                $(`#card-${this.getId()}`).removeClass('card-seleccionada');
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+            }
+            else if (this.cantidad > 0 ) {
+                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+            } 
+            else{ 
+                $(`#btn-quitar-${this.getId()}`).attr('disabled',true)
+            }
+            agregarListaSeleccionadosYDevolverMontosTotales();
         })
     }
 }
