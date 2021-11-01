@@ -89,7 +89,7 @@ let precioTotalFactura=0;
 let precioTotalFacturaConDescuento=0;
 
 function agregarListaSeleccionadosYDevolverMontosTotales() {
-    DeleteRows();
+    $('#tabla-servicios-body > tr').remove();
     precioTotalFactura=0;
     eliminarDeLaListaSiLaCantidadEsCero();
     serviciosSeleccionados.forEach((element,index) => {
@@ -127,19 +127,6 @@ function agregarListaSeleccionadosYDevolverMontosTotales() {
                                                  :</strong> $${precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje()}`;
 }
 
-function limpiarTabla() {
-    let tablaServiciosChildren = tablaServicios.children;
-    for (let i = 0; i < tablaServiciosChildren.length; i++) {
-        tablaServicios.removeChild(tablaServiciosChildren[i])
-    }
-}
-
-function DeleteRows() {
-    let rowCount = tablaServicios.rows.length;
-    for (let i = rowCount - 1; i > 0; i--) {
-        tablaServicios.deleteRow(i);
-    }
-}
 
 function eliminarDeLaListaSiLaCantidadEsCero() {
     serviciosSeleccionados.forEach((element,index)=> {
@@ -154,7 +141,7 @@ let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 
 btnAgregarAlLocalStorage.addEventListener('click', () => {
     btnAgregarAlLocalStorage.setAttribute('disabled',true);
-    btnAgregarAlLocalStorage.innerHTML = 'Ya guardaste la factura!';
+    btnAgregarAlLocalStorage.textContent = 'Ya guardaste la factura!';
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
 })
