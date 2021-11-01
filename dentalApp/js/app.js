@@ -32,57 +32,45 @@ servicios.forEach(element => {
 
 // Agrego un evento al botón de agregar paciente para que se cree una clase cuando se lo presione
 let paciente;
-const btnAgregarPaciente = document.getElementById('btn-agregar-paciente');
+const btnAgregarPaciente = $('#btn-agregar-paciente');
 
 // Cargo los input del DOM
-const inputNombre = document.getElementById('input-nombre');
-const inputApellido = document.getElementById('input-apellido');
-const inputEdad = document.getElementById('input-edad');
-const inputObraSocial = document.getElementById('lista-obras-sociales');
+const inputNombre = $('#input-nombre');
+const inputApellido = $('#input-apellido');
+const inputEdad = $('#input-edad');
 
-// Cargo los divs donde voy a mostrar los datos del paciente
-const divFactura = document.getElementById('div-factura');
-const datosNombreFactura = document.getElementById('datos-nombre-factura');
-const datosEdadFactura = document.getElementById('datos-edad-factura');
-const datosObraSocialFactura = document.getElementById('datos-obra-social-factura');
-
-
-btnAgregarPaciente.addEventListener('click', () => {
-    divFactura.style.display="block";
-    const options = inputObraSocial.options;
-    const id = options[options.selectedIndex].id;
-
-    paciente = new Persona(inputNombre.value,inputApellido.value,inputEdad.value,getObraSocialFromList(id));
-    datosNombreFactura.innerHTML=`<strong>Nombre Completo: </strong>${paciente.getNombre()} ${paciente.getApellido()}`;
-    datosEdadFactura.innerHTML=`<strong>Edad: </strong>${paciente.getEdad()}`;
-    datosObraSocialFactura.innerHTML= `<strong>Obra social: </strong>${paciente.getObraSocial().getNombre()}`;
+btnAgregarPaciente.click( () => {
+    $('#div-factura').css("display","block");
     
-    deshabilitarFormPaciente();
-    mostrarListaServiciosDisponibles();
-})
+    const inputObraSocial = $('#lista-obras-sociales option:selected');
+    const id = inputObraSocial.prop("id");
 
-const mostrarListaServiciosDisponibles = () => {
-    document.getElementById('lista-servicios-disponibles').style.display='flex';
-}
+    paciente = new Persona(inputNombre.val(),inputApellido.val(),inputEdad.val(),getObraSocialFromList(id));
+
+    $('#datos-nombre-factura').html(
+        `<strong>Nombre Completo: </strong>${paciente.getNombre()} ${paciente.getApellido()}`
+    )
+    $('#datos-edad-factura').html(
+        `<strong>Edad: </strong>${paciente.getEdad()}`
+    );
+    $('#datos-obra-social-factura').html(
+        `<strong>Obra social: </strong>${paciente.getObraSocial().getNombre()}`
+    );
+    deshabilitarFormPaciente();
+    $('#lista-servicios-disponibles').css('display','flex')
+})
 
 const getObraSocialFromList= (id) => {
     return obrasSociales[id];
 }
 
 const deshabilitarFormPaciente= () => {
-    inputNombre.setAttribute('disabled',true);
-    inputApellido.setAttribute('disabled',true);
-    inputEdad.setAttribute('disabled',true);
-    inputObraSocial.setAttribute('disabled',true);
-    btnAgregarPaciente.setAttribute('disabled',true);
+    $('#input-nombre').attr('disabled',true)
+    $('#input-apellido').attr('disabled',true)
+    $('#input-edad').attr('disabled',true)
+    $('#lista-obras-sociales').attr('disabled',true)
+    $('#btn-agregar-paciente').attr('disabled',true)
 }
-
-
-// let serviciosSeleccionados = [];
-const tablaServiciosBody= document.getElementById('tabla-servicios-body');
-const tablaServicios = document.getElementById('tabla-servicios')
-const precioTotalFacturaUI= document.getElementById('precio-total-factura');
-const precioTotalFacturaConDescuentoUI= document.getElementById('precio-total-factura-descuento');
 
 
 let precioTotalFactura=0;
@@ -93,38 +81,24 @@ function agregarListaSeleccionadosYDevolverMontosTotales() {
     precioTotalFactura=0;
     eliminarDeLaListaSiLaCantidadEsCero();
     serviciosSeleccionados.forEach((element,index) => {
-
-        const tableRow = document.createElement('tr');
-
-        const tableHeader = document.createElement('th');
-        tableHeader.setAttribute('scope','row');
-        tableHeader.innerText=(index+1);
-
-        const tableDataCantidad = document.createElement('td');
-        tableDataCantidad.innerText = element.getCantidad();
-
-        const tableDataNombreServicio = document.createElement('td');
-        tableDataNombreServicio.innerText = element.getNombre();
-
-        const tableDataPrecio = document.createElement('td');
-        tableDataPrecio.innerText = `$${element.getPrecio()}`;
-
-        const tableDataPrecioConDescuento = document.createElement('td');
-        tableDataPrecioConDescuento.innerText= `$${element.getPrecio() * paciente.obraSocial.getDescuentoEnPorcentaje()}`;
-    
-        tableRow.appendChild(tableHeader);
-        tableRow.appendChild(tableDataCantidad);
-        tableRow.appendChild(tableDataNombreServicio);
-        tableRow.appendChild(tableDataPrecio);
-        tableRow.appendChild(tableDataPrecioConDescuento);
-    
-        tablaServiciosBody.appendChild(tableRow);
-
+        $('#tabla-servicios-body').append(
+            `
+            <tr>
+                <th scope="row">${index+1}</th>
+                <td>${element.getCantidad()}</td>
+                <td>${element.getNombre()}</td>
+                <td>$${element.getPrecio()}</td>
+                <td>$${element.getPrecio() * paciente.obraSocial.getDescuentoEnPorcentaje()}</td>
+            </tr>
+            `
+        )
         precioTotalFactura+=(element.getPrecio() * element.getCantidad());
-    })    
-    precioTotalFacturaUI.innerHTML= `<strong>Precio total:</strong> $${precioTotalFactura}`;
-    precioTotalFacturaConDescuentoUI.innerHTML = `<strong>Precio total con ${paciente.obraSocial.getNombre()}
-                                                 :</strong> $${precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje()}`;
+    })
+    $('#precio-total-factura').html(`<strong>Precio total:</strong> $${precioTotalFactura}`);    
+    $('#precio-total-factura-descuento').html(`
+        <strong>Precio total con ${paciente.obraSocial.getNombre()}:</strong> 
+        $${precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje()}
+    `);
 }
 
 
@@ -136,12 +110,12 @@ function eliminarDeLaListaSiLaCantidadEsCero() {
     })
 }
 
-const btnAgregarAlLocalStorage = document.getElementById('btn-agregarlo-local-storage');
+const btnAgregarAlLocalStorage = $('#btn-agregarlo-local-storage');
 let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 
-btnAgregarAlLocalStorage.addEventListener('click', () => {
-    btnAgregarAlLocalStorage.setAttribute('disabled',true);
-    btnAgregarAlLocalStorage.textContent = 'Ya guardaste la factura!';
+btnAgregarAlLocalStorage.click( () => {
+    btnAgregarAlLocalStorage.attr('disabled',true);
+    btnAgregarAlLocalStorage.html('<strong>Ya guardaste la factura!</strong>');
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
 })
