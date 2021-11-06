@@ -57,7 +57,7 @@ btnAgregarPaciente.click( () => {
         `<strong>Obra social: </strong>${paciente.getObraSocial().getNombre()}`
     );
     deshabilitarFormPaciente();
-    $('#lista-servicios-disponibles').css('display','flex')
+    $('#lista-servicios-disponibles').fadeIn(500);
 })
 
 const getObraSocialFromList= (id) => {
