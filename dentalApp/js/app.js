@@ -1,34 +1,39 @@
-//import { Persona } from "./clases/persona";
-
+const URL_JSON_servicios = 'js/data/servicios.json';
+const URL_JSON_obras_sociales = 'js/data/obrasSociales.json';
 const obrasSociales = [];
 const servicios = [];
 
 let serviciosSeleccionados = [];
 
-/* - - - - - - - - - -  Cargamos la información de inicio - - - - - - - - - -*/
+/* - - - - - -   Cargamos la información de inicio  - - - - - - -*/
 
 /* Obras Sociales */
-dataObrasSociales.forEach((element,index) =>{
-    obrasSociales.push(new ObraSocial(index,element.nombre, element.descuento));
-})
-
-/* Agrego las obras sociales al selector del formulario */
-obrasSociales.forEach(element => {
-    element.agregarObraSocialAlSelector();
+$.getJSON(URL_JSON_obras_sociales, (response, status) => {
+    if (status !== 'success') {
+        throw new Error(`Error al cargar ${URL_JSON_obras_sociales}`);
+    }
+    response.forEach( (element, index)=> {
+        obrasSociales.push(new ObraSocial(index,element.nombre, element.descuento));
+    })
+    obrasSociales.forEach(element => {
+        element.agregarObraSocialAlSelector();
+    })
 })
 
 
 /* Servicios */
-dataServicios.forEach((element,index) => {
-    servicios.push(new Servicio(index,0,element.nombre, element.urlImagen ,element.descripcion,element.precio,element.limite));
+$.getJSON( URL_JSON_servicios, (response, status) => {
+    if (status !== 'success') {
+        throw new Error(`Error al cargar ${URL_JSON_servicios}`);
+    }
+    response.forEach( (element,index) => {
+        servicios.push(new Servicio(index,0,element.nombre, element.urlImagen ,element.descripcion,element.precio,element.limite));
+    })
+    servicios.forEach(element => {
+        element.dibujarEnLaLista();
+    })
 })
 
-/* Dibujo los elementos en el DOM */
-servicios.forEach(element => {
-    element.dibujarEnLaLista();
-})
-
-//const asd = new Persona()
 
 // Agrego un evento al botón de agregar paciente para que se cree una clase cuando se lo presione
 let paciente;
