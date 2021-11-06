@@ -4476,6 +4476,15 @@ textarea.form-control-lg {
   color: rgba(255, 255, 255, 0.55);
 }
 
+.link-lista-facturas {
+  text-decoration: none;
+  font-weight: 600;
+  background: #ececec;
+  border-radius: 10px;
+  padding: 0px 5px 0px 5px;
+  border: 1px solid #e2e2e2;
+}
+
 .precios-totales {
   display: flex;
   flex-direction: column;
@@ -5610,9 +5619,10 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 2px solid #6eebff;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
+  background: #d2f9ff;
 }
 .modal-header .btn-close {
   padding: 0.5rem 0.5rem;

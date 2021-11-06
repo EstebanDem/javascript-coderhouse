@@ -118,4 +118,43 @@ btnAgregarAlLocalStorage.click( () => {
     btnAgregarAlLocalStorage.html('<strong>Ya guardaste la factura!</strong>');
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
+    parseListaPrespuestos();
 })
+
+function parseListaPrespuestos() {
+    listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos'));
+}
+
+$('#link-lista-total-facturas').click( () => {
+    $('#modal-lista-facturas').empty();
+    $('#modal-lista-facturas').append(
+        `
+        <table class="table table-hover">
+            <thead>
+                Falta completar!
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-lista-facturas>
+            asdasdsad
+            </tbody>
+        </table>
+        `
+    );
+    listaPresupuesto.forEach(element => {
+        $('#modal-lista-factura').append(
+            `<p>hoaaaaaaaaaaaaaaaaaala</p>`
+        )
+    })
+})
+
+{/* <tr>
+<th scope="row">1</th>
+<td>Mark</td>
+<td>Otto</td>
+<td>@mdo</td>
+</tr> */}

@@ -60,8 +60,10 @@
                     <div class="col-lg-10">
                         <h2>Realizá tu presupuesto/factura acá mismo</h2>
                         <p class="lead">La idea es que acá se muestren los servicios con sus precios e información. 
-                            El odontólogo(usuario) los puede ir seleccionando y sumando. Luego de agregados puede aplicar un descuento de acuerdo a la Obra social que tenga</p>
-                        <div>
+                            El odontólogo(usuario) los puede ir seleccionando y sumando. Luego de agregados puede aplicar un descuento de acuerdo a la Obra social que tenga.
+                        El siguiente link te mostrará todas las facturas realizadas <a data-bs-toggle="modal" data-bs-target="#exampleModal" id="link-lista-total-facturas" class="link-lista-facturas" href="google.com">Lista 📄 </a> </p>
+                        
+                            <div>
                             <h3 class="datos-paciente-inicio mt-5">Datos del Paciente</h3>
                             <!-- Formulario para ingresar los datos del paciente -->
                             <div class="row g-2 mt-2 mb-5">
@@ -100,8 +102,8 @@
                               
                               <!-- Acá se van a mostrar los servicios -->
                               <div id="lista-servicios-disponibles" style='display:none' class="row">
+                                <p>Agregá tu servicio</p>
                                 <hr>
-                                
                             </div>
                         </div>
                         <!-- Acá se va a mostrar el presupuesto -->
@@ -141,6 +143,24 @@
                 </div>
             </div>
         </section>
+        <!-- Modal para mostrar las facturas ya realizadas -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Facturas realizadas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal-lista-facturas" class="modal-body">
+                Loremss
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            </div>
+        </div>
         <!-- Contact section-->
         <section id="contact">
             <div class="container px-4">
