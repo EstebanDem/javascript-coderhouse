@@ -94,10 +94,11 @@ function agregarListaSeleccionadosYDevolverMontosTotales() {
         )
         precioTotalFactura+=(element.getPrecio() * element.getCantidad());
     })
+    precioTotalFacturaConDescuento = precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje();
     $('#precio-total-factura').html(`<strong>Precio total:</strong> $${precioTotalFactura}`);    
     $('#precio-total-factura-descuento').html(`
         <strong>Precio total con ${paciente.obraSocial.getNombre()}:</strong> 
-        $${precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje()}
+        $${precioTotalFacturaConDescuento}
     `);
 }
 
@@ -116,45 +117,70 @@ let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 btnAgregarAlLocalStorage.click( () => {
     btnAgregarAlLocalStorage.attr('disabled',true);
     btnAgregarAlLocalStorage.html('<strong>Ya guardaste la factura!</strong>');
-    listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados));
+    listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados,precioTotalFacturaConDescuento));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
     parseListaPrespuestos();
 })
 
 function parseListaPrespuestos() {
-    listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos'));
+    listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 }
 
 $('#link-lista-total-facturas').click( () => {
+    parseListaPrespuestos();
+    listaPresupuestoLength = Object.keys(listaPresupuesto).length;
     $('#modal-lista-facturas').empty();
-    $('#modal-lista-facturas').append(
-        `
-        <table class="table table-hover">
-            <thead>
-                Falta completar!
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                </tr>
-            </thead>
-            <tbody id="tbody-lista-facturas>
-            asdasdsad
-            </tbody>
-        </table>
-        `
-    );
-    listaPresupuesto.forEach(element => {
-        $('#modal-lista-factura').append(
-            `<p>hoaaaaaaaaaaaaaaaaaala</p>`
-        )
-    })
-})
+    if (listaPresupuestoLength===0) {
+        $('#modal-lista-facturas').append(`
+            <h3>No hay facturas guardadas 😔</h3>
+        `)    
+    } else {
+        $('#btn-borrar-lista-facturas-modal').removeAttr('disabled');
+        $('#btn-borrar-lista-facturas-modal').click( () => {
+            localStorage.removeItem('presupuestos');
+            $('#btn-borrar-lista-facturas-modal').attr('disabled',true)
+        })
 
-{/* <tr>
-<th scope="row">1</th>
-<td>Mark</td>
-<td>Otto</td>
-<td>@mdo</td>
-</tr> */}
+    
+        $('#modal-lista-facturas').append(
+            `
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Obra Social </th>
+                    <th scope="col">Servicios</th>
+                    <th scope="col">Precio total</th>
+                    </tr>
+                </thead>
+                <tbody id="ttbody-lista-facturas">
+                </tbody>
+            </table>
+            `
+        );
+        
+        
+        listaPresupuesto.forEach((element,index) => {
+            
+            let serviciosMostradosComoString="";
+            element.servicios.forEach(element => {
+                serviciosMostradosComoString+=` ${element.nombre},`;
+            })
+            serviciosMostradosComoString =serviciosMostradosComoString.replace(/.$/,".");
+            
+            $('#ttbody-lista-facturas').append(
+                `
+                <tr>
+                    <th scope="row">${index+1}</th>
+                    <td>${element.persona.nombre} ${element.persona.apellido}</td>
+                    <td>${element.persona.obraSocial.nombre}</td>
+                    <td>${serviciosMostradosComoString}</td>
+                    <td>$${element.montoFinal}</td>
+                </tr>
+                `
+            )
+        })
+}
+    
+})
