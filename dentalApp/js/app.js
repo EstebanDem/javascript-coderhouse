@@ -2,6 +2,7 @@ const URL_JSON_servicios = 'js/data/servicios.json';
 const URL_JSON_obras_sociales = 'js/data/obrasSociales.json';
 const obrasSociales = [];
 const servicios = [];
+let primeraVez= localStorage.getItem('primeraVez') || true;
 
 let serviciosSeleccionados = [];
 
@@ -34,6 +35,10 @@ $.getJSON( URL_JSON_servicios, (response, status) => {
     })
 })
 
+primeraVez===true ? $('#alerta-ayuda-paso-1').show() : $('#alerta-ayuda-paso-1').hide(); 
+
+
+/* Si es la primera vez que ingresa se mostrará ayuda, eso lo manejo a través de localStorage, sino no se muestra. */
 
 // Agrego un evento al botón de agregar paciente para que se cree una clase cuando se lo presione
 let paciente;
@@ -44,7 +49,15 @@ const inputNombre = $('#input-nombre');
 const inputApellido = $('#input-apellido');
 const inputEdad = $('#input-edad');
 
+function mostrarAyuda() {
+    $('#alerta-ayuda-paso-1').fadeOut(600);
+    $('#alerta-ayuda-paso-2').fadeIn(1000);
+    $('#alerta-ayuda-paso-3').fadeIn(1000);
+}
+
 btnAgregarPaciente.click( () => {
+    primeraVez===true ? mostrarAyuda() : null;
+    
     $('#div-factura').css("display","block");
     
     const inputObraSocial = $('#lista-obras-sociales option:selected');
@@ -120,6 +133,8 @@ const btnAgregarAlLocalStorage = $('#btn-agregarlo-local-storage');
 let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 
 btnAgregarAlLocalStorage.click( () => {
+    primeraVez = false;
+    localStorage.setItem('primeraVez',false);
     btnAgregarAlLocalStorage.attr('disabled',true);
     btnAgregarAlLocalStorage.html('<strong>Ya guardaste la factura!</strong>');
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados,precioTotalFacturaConDescuento));
@@ -189,3 +204,6 @@ $('#link-lista-total-facturas').click( () => {
 }
     
 })
+
+
+// Mostrar el div de ayuda si estoy a cierta distancia

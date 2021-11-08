@@ -65,8 +65,13 @@
                         
                             <div>
                             <h3 class="datos-paciente-inicio mt-5">Datos del Paciente</h3>
+
                             <!-- Formulario para ingresar los datos del paciente -->
                             <div class="row g-2 mt-2 mb-5">
+                                <div id="alerta-ayuda-paso-1" class="alert alert-primary" role="alert">
+                                    <p>Por ser la primera vez te ayudaremos a utilizar el sistema 😉 Luego no verás más esta ayuda (solo si borras el localstorage 🤫) </p>
+                                     ✏ Completa el formulario con los datos del paciente y selecciona la obra social 
+                                </div>
                                 <div class="col-md">
                                   <div class="form-floating">
                                     <input type="text" id="input-nombre"  class="form-control" id="floatingInputGrid" placeholder="#">
@@ -101,14 +106,19 @@
                               </div>
                               
                               <!-- Acá se van a mostrar los servicios -->
-                              <div id="lista-servicios-disponibles" style='display:none' class="row">
+                              <div id="lista-servicios-disponibles" style='display:none' class="row g-2">
                                 <hr>
+                                <div id="alerta-ayuda-paso-2" style='display:none' class="alert alert-primary" role="alert">
+                                    <p> 🦷 Seleccioná los servicios que realizaste en el paciente, podés agregar y quitar a través de acá o de la tabla debajo </p>
+                                </div>
                             </div>
                         </div>
                         <!-- Acá se va a mostrar el presupuesto -->
-
                         <div id="div-factura" style="display:none">
                             <h3 class="datos-factura-inicio mt-5 tet">Factura</h3>
+                            <div id="alerta-ayuda-paso-3" style='display:none' class="alert alert-primary" role="alert">
+                                📃 Acá debajo podes ver la factura, edita los servicios según corresponda y luego guarda la factura
+                            </div>
                             <p id="datos-nombre-factura" class="lead"></p>
                             <p id="datos-edad-factura" class="lead"></strong></p>
                             <p id="datos-obra-social-factura" class="lead"></p>
@@ -142,8 +152,8 @@
                 </div>
             </div>
         </section>
+        <!-- Modales -->
         <!-- Modal para mostrar las facturas ya realizadas -->
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -152,7 +162,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="modal-lista-facturas" class="modal-body">
-                Loremss
                 </div>
                 <div class="modal-footer">
                 <button type="button" id="btn-borrar-lista-facturas-modal" class="btn btn-danger" disabled data-bs-dismiss="modal">Borrar lista</button>
