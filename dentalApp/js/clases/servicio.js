@@ -61,6 +61,46 @@ class Servicio {
         })
     }
 
+    verificarCantidad() {
+        if (this.cantidad >= this.limite) {
+        
+            $(`#btn-agregar-${this.getId()}`).attr('disabled',true);
+            $(`#btn-tabla-agregar-${this.getId()}`).attr('disabled',true);
+        } else {
+            $(`#btn-agregar-${this.getId()}`).removeAttr('disabled');
+            $(`#btn-tabla-agregar-${this.getId()}`).removeAttr('disabled');
+        }
+    }
+
+    agregarCantidadyVerificar() {
+        if (this.cantidad===0) {
+            this.agregarAlArrayDeServiciosSeleccionados(this);
+            this.agregarCantidad();
+            $(`#btn-quitar-${this.getId()}`).removeAttr('disabled');
+            $(`#card-${this.getId()}`).addClass('card-seleccionada')
+        } else {
+            this.existeElServicioEnElArrayDeSeleccionadosEntoncesAgregaUno(this);
+        }
+        agregarListaSeleccionadosYDevolverMontosTotales();
+        this.verificarCantidad();
+    }
+
+    quitarCantidadyVerificar() {
+        if (this.cantidad === 1) {
+            $(`#btn-quitar-${this.getId()}`).attr('disabled',true);
+            $(`#card-${this.getId()}`).removeClass('card-seleccionada');
+            this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+        }
+        else if (this.cantidad > 0 ) {
+            this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
+        } 
+        else{ 
+            $(`#btn-quitar-${this.getId()}`).attr('disabled',true)
+        }
+        agregarListaSeleccionadosYDevolverMontosTotales();
+        this.verificarCantidad();
+    }
+
     dibujarEnLaLista() {
 
         $('#lista-servicios-disponibles').append(
@@ -83,30 +123,23 @@ class Servicio {
         )
         
         $(`#btn-agregar-${this.getId()}`).click( () => {
-            if (this.cantidad===0) {
-                this.agregarAlArrayDeServiciosSeleccionados(this);
-                this.agregarCantidad();
-                $(`#btn-quitar-${this.getId()}`).removeAttr('disabled');
-                $(`#card-${this.getId()}`).addClass('card-seleccionada')
-            } else {
-                this.existeElServicioEnElArrayDeSeleccionadosEntoncesAgregaUno(this);
-            }
-            agregarListaSeleccionadosYDevolverMontosTotales();
+            this.agregarCantidadyVerificar();
         } )
 
         $(`#btn-quitar-${this.getId()}`).click( () => {
-            if (this.cantidad === 1) {
-                $(`#btn-quitar-${this.getId()}`).attr('disabled',true);
-                $(`#card-${this.getId()}`).removeClass('card-seleccionada');
-                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
-            }
-            else if (this.cantidad > 0 ) {
-                this.existeElServicioEnElArrayDeSeleccionadosEntoncesRestaUno(this);
-            } 
-            else{ 
-                $(`#btn-quitar-${this.getId()}`).attr('disabled',true)
-            }
-            agregarListaSeleccionadosYDevolverMontosTotales();
+            this.quitarCantidadyVerificar();
+        })
+
+        
+    }
+
+    agregarFuncionalidadBotonesTabla() {
+        $(`#btn-tabla-agregar-${this.getId()}`).click ( () => {
+            this.agregarCantidadyVerificar();
+        })
+
+        $(`#btn-tabla-quitar-${this.getId()}`).click ( () => {
+            this.quitarCantidadyVerificar();
         })
     }
 }

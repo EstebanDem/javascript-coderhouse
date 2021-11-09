@@ -99,17 +99,26 @@ function agregarListaSeleccionadosYDevolverMontosTotales() {
     precioTotalFactura=0;
     eliminarDeLaListaSiLaCantidadEsCero();
     serviciosSeleccionados.forEach((element,index) => {
+        let precioConDescuento=element.getPrecio() * paciente.obraSocial.getDescuentoEnPorcentaje();
+
         $('#tabla-servicios-body').append(
             `
             <tr>
                 <th scope="row">${index+1}</th>
-                <td>${element.getCantidad()}</td>
+                <td>
+                    ${element.getCantidad()}
+                    <button id="btn-tabla-agregar-${element.getId()}" type="button" class="btn btn-success btn-sm">+</button>
+                    <button id="btn-tabla-quitar-${element.getId()}" type="button" class="btn btn-danger btn-sm">-</button>
+                    
+                </td>
                 <td>${element.getNombre()}</td>
                 <td>$${element.getPrecio()}</td>
-                <td>$${element.getPrecio() * paciente.obraSocial.getDescuentoEnPorcentaje()}</td>
+                <td>$${precioConDescuento}</td>
+                <td>$${precioConDescuento*element.getCantidad()} </td>
             </tr>
             `
         )
+        element.agregarFuncionalidadBotonesTabla();
         precioTotalFactura+=(element.getPrecio() * element.getCantidad());
     })
     precioTotalFacturaConDescuento = precioTotalFactura * paciente.obraSocial.getDescuentoEnPorcentaje();
