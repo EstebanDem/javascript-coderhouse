@@ -1,7 +1,7 @@
 const URL_JSON_servicios = 'js/data/servicios.json';
 const URL_JSON_obras_sociales = 'js/data/obrasSociales.json';
 const obrasSociales = [];
-const servicios = [];
+let servicios = [];
 let primeraVez= localStorage.getItem('primeraVez') || true;
 
 let serviciosSeleccionados = [];
@@ -21,19 +21,24 @@ $.getJSON(URL_JSON_obras_sociales, (response, status) => {
     })
 })
 
-
+let serviciosResponse;
 /* Servicios */
 $.getJSON( URL_JSON_servicios, (response, status) => {
+    serviciosResponse = response;
     if (status !== 'success') {
         throw new Error(`Error al cargar ${URL_JSON_servicios}`);
     }
+    loadServicios(serviciosResponse);
+})
+
+function loadServicios(response) {
     response.forEach( (element,index) => {
         servicios.push(new Servicio(index,0,element.nombre, element.urlImagen ,element.descripcion,element.precio,element.limite));
     })
     servicios.forEach(element => {
         element.dibujarEnLaLista();
     })
-})
+}
 
 primeraVez===true ? $('#alerta-ayuda-paso-1').show() : $('#alerta-ayuda-paso-1').hide(); 
 
@@ -56,26 +61,30 @@ function mostrarAyuda() {
 }
 
 btnAgregarPaciente.click( () => {
-    primeraVez===true ? mostrarAyuda() : null;
+    if(sonValidosTodosLosInputs()) {
+        primeraVez===true ? mostrarAyuda() : null;
     
-    $('#div-factura').css("display","block");
+        $('#div-factura').css("display","block");
+        
+        const inputObraSocial = $('#lista-obras-sociales option:selected');
+        const id = inputObraSocial.prop("id");
     
-    const inputObraSocial = $('#lista-obras-sociales option:selected');
-    const id = inputObraSocial.prop("id");
-
-    paciente = new Persona(inputNombre.val(),inputApellido.val(),inputEdad.val(),getObraSocialFromList(id));
-
-    $('#datos-nombre-factura').html(
-        `<strong>Nombre Completo: </strong>${paciente.getNombre()} ${paciente.getApellido()}`
-    )
-    $('#datos-edad-factura').html(
-        `<strong>Edad: </strong>${paciente.getEdad()}`
-    );
-    $('#datos-obra-social-factura').html(
-        `<strong>Obra social: </strong>${paciente.getObraSocial().getNombre()}`
-    );
-    deshabilitarFormPaciente();
-    $('#lista-servicios-disponibles').fadeIn(500);
+        paciente = new Persona(inputNombre.val(),inputApellido.val(),inputEdad.val(),getObraSocialFromList(id));
+    
+        $('#datos-nombre-factura').html(
+            `<strong>Nombre Completo: </strong>${paciente.getNombre()} ${paciente.getApellido()}`
+        )
+        $('#datos-edad-factura').html(
+            `<strong>Edad: </strong>${paciente.getEdad()}`
+        );
+        $('#datos-obra-social-factura').html(
+            `<strong>Obra social: </strong>${paciente.getObraSocial().getNombre()}`
+        );
+        deshabilitarFormPaciente();
+        $('#lista-servicios-disponibles').fadeIn(500);
+        document.getElementById('lista-servicios-disponibles').scrollIntoView();
+    }
+    
 })
 
 const getObraSocialFromList= (id) => {
@@ -142,14 +151,18 @@ const btnAgregarAlLocalStorage = $('#btn-agregarlo-local-storage');
 let listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
 
 btnAgregarAlLocalStorage.click( () => {
+    
+    document.getElementById('h3-datos-del-paciente').scrollIntoView(); 
     primeraVez = false;
     localStorage.setItem('primeraVez',false);
-    btnAgregarAlLocalStorage.attr('disabled',true);
-    btnAgregarAlLocalStorage.html('<strong>Ya guardaste la factura!</strong>');
+    
     listaPresupuesto.push(new Presupuesto(paciente,serviciosSeleccionados,precioTotalFacturaConDescuento));
     localStorage.setItem('presupuestos', JSON.stringify(listaPresupuesto));
     parseListaPrespuestos();
+    LimpiarValoresYOcultarDivs();
+
 })
+
 
 function parseListaPrespuestos() {
     listaPresupuesto = JSON.parse(localStorage.getItem('presupuestos')) || [];
@@ -215,4 +228,82 @@ $('#link-lista-total-facturas').click( () => {
 })
 
 
-// Mostrar el div de ayuda si estoy a cierta distancia
+// Realizamos la validación de los datos ingresados para el usuario
+
+const inputs = document.querySelectorAll('input');
+const inputObraSocial = $('#lista-obras-sociales');
+inputObraSocial.addClass('form-control invalid')
+
+const patterns = {
+    "input-nombre": /^[a-zA-Z ]+$/i,
+    "input-apellido": /^[a-zA-Z ]+$/i,
+    "input-edad": /^[\d]{1,2}$/
+};
+
+inputs.forEach((input) => {
+    input.addEventListener('keyup', (e) => {
+      validate(e.target, patterns[e.target.attributes.id.value]);
+    });
+});
+  
+inputObraSocial.change( () => {
+    inputObraSocial.removeClass('form-control invalid')
+    inputObraSocial.addClass('form-control valid')
+})
+
+
+function validate(field, regex) {
+    if (regex.test(field.value)) {
+      field.className = 'form-control valid';
+    } else {
+      field.className = 'form-control invalid';
+    }
+}
+
+function sonValidosTodosLosInputs() {
+    let todosValidos=true;
+    inputs.forEach(input => {
+        if(!input.classList.contains('valid')){
+            todosValidos=false;
+        }
+    })
+    if(!document.getElementById('lista-obras-sociales').classList.contains('valid')) {
+        todosValidos=false;
+    }
+    return todosValidos;
+}
+
+
+function LimpiarValoresYOcultarDivs() {
+    $('#tabla-servicios-body > tr').remove();
+    $("#lista-servicios-disponibles").empty();
+
+    $('#lista-servicios-disponibles').fadeOut(500);
+    $('#div-factura').fadeOut(500);
+
+    eliminarAttrDisabledClassValidYSetearValorNulo($('#input-nombre'));
+    eliminarAttrDisabledClassValidYSetearValorNulo($('#input-apellido'));
+    eliminarAttrDisabledClassValidYSetearValorNulo($('#input-edad'));
+
+    
+    $('#lista-obras-sociales').removeAttr('disabled');
+    $('#lista-obras-sociales').val("Seleccione de la lista").change();
+    $('#lista-obras-sociales').removeClass('valid')
+    $('#lista-obras-sociales').addClass('invalid')
+
+    $('#btn-agregar-paciente').removeAttr('disabled');
+
+    serviciosSeleccionados = [];
+    servicios = []; 
+    $('#precio-total-factura').html("");    
+    $('#precio-total-factura-descuento').html("");
+    $("#lista-servicios-disponibles").empty();
+    loadServicios(serviciosResponse);
+
+}
+
+function eliminarAttrDisabledClassValidYSetearValorNulo(element) {
+    element.removeAttr('disabled');
+    element.removeClass('valid')
+    element.val("");
+}

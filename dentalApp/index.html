@@ -64,7 +64,7 @@
                         El siguiente link te mostrará todas las facturas realizadas <a data-bs-toggle="modal" data-bs-target="#exampleModal" id="link-lista-total-facturas" class="link-lista-facturas" href="google.com">Lista 📄 </a> </p>
                         
                             <div>
-                            <h3 class="datos-paciente-inicio mt-5">Datos del Paciente</h3>
+                            <h3 id="h3-datos-del-paciente" class="datos-paciente-inicio mt-5">Datos del Paciente</h3>
 
                             <!-- Formulario para ingresar los datos del paciente -->
                             <div class="row g-2 mt-2 mb-5">
@@ -75,24 +75,27 @@
                                 <div class="col-md">
                                   <div class="form-floating">
                                     <input type="text" id="input-nombre"  class="form-control" id="floatingInputGrid" placeholder="#">
+                                    <small id="usernameHelp" class="form-text">Ingrese un nombre válido</small>
                                     <label for="floatingInputGrid">Nombre</label>
                                   </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
                                       <input type="text" id="input-apellido" class="form-control" id="floatingInputGrid" placeholder="#">
+                                      <small id="usernameHelp" class="form-text">Ingrese un apellido válido</small>
                                       <label for="floatingInputGrid">Apellido</label>
                                     </div>
                                   </div>
                                   <div class="col-md">
                                     <div class="form-floating">
                                       <input type="number" id="input-edad" class="form-control" id="floatingInputGrid" placeholder="1">
+                                      <small id="usernameHelp" class="form-text">Ingrese una edad válida</small>
                                       <label for="floatingInputGrid">Edad</label>
                                     </div>
                                   </div>
                                 <div class="col-md">
                                   <div class="form-floating">
-                                    <select class="form-select" id="lista-obras-sociales" aria-label="Floating label select example">
+                                    <select class="form-select form-control" id="lista-obras-sociales" aria-label="Floating label select example">
                                       <option hidden selected>Seleccione de la lista</option>
                                     </select>
                                     <label for="lista-obras-sociales">Obra social</label>

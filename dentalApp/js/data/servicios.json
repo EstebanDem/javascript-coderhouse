@@ -1,58 +1,58 @@
 [
     {
-        "nombre": "Extracciónxxxxxxx",
+        "nombre": "Consulta estándar",
         "urlImagen": "images/servicios/1.png",
-        "descripcion": "Extracción de pieza dentaria con anestesia",
-        "precio": 600,
+        "descripcion": "Consulta sobre estado o revisión",
+        "precio": 1000,
+        "limite": 3
+    },
+    {
+        "nombre": "Endodoncia ",
+        "urlImagen": "images/servicios/2.png",
+        "descripcion": "Tratamiento de conducto en una pieza dentaria",
+        "precio": 3500,
         "limite": 32
     },
     {
-        "nombre": "Brackets",
-        "urlImagen": "images/servicios/2.png",
-        "descripcion": "Ortodoncia general en toda la boca",
-        "precio": 6000,
+        "nombre": "Perno y Corona ",
+        "urlImagen": "images/servicios/3.png",
+        "descripcion": "Colocación de perno para reforzar las raíces dentales",
+        "precio": 10000,
+        "limite": 32
+    },
+    {
+        "nombre": "Ortodoncia",
+        "urlImagen": "images/servicios/4.png",
+        "descripcion": "Colocación de Brackets superiores y/o inferiores.",
+        "precio": 27500,
         "limite": 2
     },
     {
-        "nombre": "Limpieza ",
-        "urlImagen": "images/servicios/3.png",
-        "descripcion": "Limpieza general en toda la boca",
-        "precio": 300,
+        "nombre": "Blanqueamiento",
+        "urlImagen": "images/servicios/5.png",
+        "descripcion": "Blanqueo de pieza dentaria utilizando equipo de Ozono",
+        "precio": 850,
+        "limite": 32
+    },
+    {
+        "nombre": "Tratamiento de caries",
+        "urlImagen": "images/servicios/6.png",
+        "descripcion": "Tratamiento con flúor o empaste",
+        "precio": 4500,
+        "limite": 32
+    },
+    {
+        "nombre": "Limpieza completa",
+        "urlImagen": "images/servicios/7.png",
+        "descripcion": "Limpieza general y remoción de sarro en toda la boca",
+        "precio": 6000,
         "limite": 1
     },
     {
-        "nombre": "Arreglo de caries",
-        "urlImagen": "images/servicios/4.png",
-        "descripcion": "Arreglo de carie en uno o más dientes con anestesia",
-        "precio": 600,
-        "limite": 32
-    },
-    {
-        "nombre": "Arreglo de caries5",
-        "urlImagen": "images/servicios/5.png",
-        "descripcion": "Arreglo de carie en uno o más dientes con anestesia",
-        "precio": 600,
-        "limite": 32
-    },
-    {
-        "nombre": "Arreglo de caries6",
-        "urlImagen": "images/servicios/6.png",
-        "descripcion": "Arreglo de carie en uno o más dientes con anestesia",
-        "precio": 600,
-        "limite": 32
-    },
-    {
-        "nombre": "Arreglo de caries7",
-        "urlImagen": "images/servicios/7.png",
-        "descripcion": "Arreglo de carie en uno o más dientes con anestesia",
-        "precio": 600,
-        "limite": 32
-    },
-    {
-        "nombre": "Arreglo de caries8",
+        "nombre": "Remoción de cálculo dental",
         "urlImagen": "images/servicios/8.png",
-        "descripcion": "Arreglo de carie en uno o más dientes con anestesia",
-        "precio": 600,
+        "descripcion": "Eliminación de sarro",
+        "precio": 950,
         "limite": 32
     }
 ]

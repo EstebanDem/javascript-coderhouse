@@ -106,7 +106,7 @@ class Servicio {
         $('#lista-servicios-disponibles').append(
             `
             <div class="col-sm-3">
-                <div id="card-${this.getId()}" class="card mt-4">
+                <div id="card-${this.getId()}" class="card mt-1">
                     <img class="card-img-top" src="${this.getUrlImagen()}">
                     <div class="card-body">
                         <h5 class="card-title">${this.getNombre()}</h5>
